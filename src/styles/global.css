@@ -16,6 +16,7 @@ h1 {
   font-weight: bold;
   font-size: 56px;
   line-height: 66px;
+  align-items: center;
   letter-spacing: -0.004em;
   text-transform: uppercase;
   text-align: center;
@@ -36,6 +37,7 @@ h1 {
     height: 146px;
     position: relative;
     margin-left: 30px; 
+    margin-top: 20px;
 }
 
 .face {
