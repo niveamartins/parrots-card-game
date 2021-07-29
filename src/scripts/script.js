@@ -41,7 +41,7 @@ function showingCards() {
   for (let card = 0; card < gameCards.length; card++) {
     cardString =
       cardString +
-      '<div class="card" onclick="selectCard(this)">\n<img class="front" src="./src/img/front.png" />\n<img class="back hidden" src="./src/img/' +
+      '<div class="card" onclick="selectCard(this)">\n<img class="front face" src="./src/img/front.png" />\n<img class="back face" src="./src/img/' +
       gameCards[card] +
       '"/>\n</div>\n';
   }
@@ -68,8 +68,13 @@ function toggleCard(card) {
   let frontCard = card.querySelector(".front");
   let backCard = card.querySelector(".back");
 
-  frontCard.classList.toggle("hidden");
-  backCard.classList.toggle("hidden");
+  if (backCard.style.transform === 'rotateY(0deg)') {
+    frontCard.style.transform = 'rotateY(0deg)';
+    backCard.style.transform = 'rotateY(180deg)';
+  } else {
+    backCard.style.transform = 'rotateY(0deg)';
+    frontCard.style.transform = 'rotateY(180deg)';
+  }
 }
 
 function verifyCards() {
@@ -77,23 +82,28 @@ function verifyCards() {
   let secondCard = selectedCards[1].querySelector(".back");
 
   if (firstCard.src !== secondCard.src) {
-    unmatchedCards();
+    unmatchedCards()
   } else {
     matchedCards();
   }
 
-  selectedCards = [];
 }
 
 function unmatchedCards() {
-  toggleCard(selectedCards[0]);
-  toggleCard(selectedCards[1]);
+    setTimeout(() => {
+        toggleCard(selectedCards[0]);
+        toggleCard(selectedCards[1]);
+        selectedCards = []
+    }, 1000);   
+    
 }
 
 function matchedCards() {
   numberOfMatchedCards = numberOfMatchedCards + 2;
   selectedCards[0].classList.add("matched");
   selectedCards[1].classList.add("matched");
+
+  selectedCards = []
 }
 
 function verifyEndGame() {
