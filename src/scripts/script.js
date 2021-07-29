@@ -49,17 +49,21 @@ function showingCards() {
 }
 
 function selectCard(card) {
-  let frontCard = card.querySelector(".front");
-  let backCard = card.querySelector(".back");
-  frontCard.classList.add("hidden");
-  backCard.classList.remove("hidden");
+  toggleCard(card)
   selectedCards.push(card);
   numberOfRounds++;
   if (selectedCards.length === 2) {
     verifyCards();
   }
-
   verifyEndGame();
+}
+
+function toggleCard(card) {
+    let frontCard = card.querySelector(".front");
+    let backCard = card.querySelector(".back");
+  
+    frontCard.classList.toggle("hidden");
+    backCard.classList.toggle("hidden");
 }
 
 function verifyCards() {
