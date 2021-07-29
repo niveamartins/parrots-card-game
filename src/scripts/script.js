@@ -7,7 +7,7 @@ let availableCards = [
   "fiestaparrot.gif",
   "metalparrot.gif",
   "revertitparrot.gif",
-  "triplesparrot.gif",
+  "tripletsparrot.gif",
   "unicornparrot.gif",
 ];
 
@@ -15,7 +15,7 @@ while (
   quantityOfCards < 4 ||
   quantityOfCards > 14 ||
   !Number.isInteger(quantityOfCards) ||
-  !(quantityOfCards%2 === 0)
+  !(quantityOfCards % 2 === 0)
 ) {
   quantityOfCards = Number(
     prompt("Resposta inválida :( \n Com quantas cartas você deseja jogar?")
@@ -24,7 +24,7 @@ while (
 
 function shuffleCards() {
   availableCards.sort(comparator);
-  for (let card = 0; card < (quantityOfCards/2); card++) {
+  for (let card = 0; card < quantityOfCards / 2; card++) {
     gameCards.push(availableCards[card]);
     gameCards.push(availableCards[card]);
   }
@@ -38,19 +38,38 @@ function showingCards() {
   for (let card = 0; card < gameCards.length; card++) {
     cardString =
       cardString +
-      '<div class="card" onclick="selectCard(this)">\n<img class="front" src="./src/img/front.png" />\n<img class="back hidden" src="./src/img/' + gameCards[card] + '"/>\n</div>\n';
+      '<div class="card" onclick="selectCard(this)">\n<img class="front" src="./src/img/front.png" />\n<img class="back hidden" src="./src/img/' +
+      gameCards[card] +
+      '"/>\n</div>\n';
   }
   document.querySelector(".cards").innerHTML = cardString;
 }
 
 function selectCard(card) {
-    frontCard = card.querySelector(".front")
-    backCard = card.querySelector(".back")
+  let frontCard = card.querySelector(".front");
+  let backCard = card.querySelector(".back");
+  frontCard.classList.add("hidden");
+  backCard.classList.remove("hidden");
+  selectedCards.push(card);
+  if (selectedCards.length === 2) {
+    verifyCards();
+  }
+}
 
-    frontCard.classList.add("hidden")
-    backCard.classList.remove("hidden")
+function verifyCards() {
+    let firstCard = selectedCards[0].querySelector(".back")
+    let secondCard = selectedCards[1].querySelector(".back")
 
+    if (firstCard.src !== secondCard.src) {
 
+        firstCard.classList.toggle("hidden")
+        secondCard.classList.toggle("hidden")
+
+        selectedCards[0].querySelector(".front").classList.toggle("hidden")
+        selectedCards[1].querySelector(".front").classList.toggle("hidden")
+    } 
+
+    selectedCards = []
 }
 
 function comparator() {
