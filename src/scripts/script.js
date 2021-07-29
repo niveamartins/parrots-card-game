@@ -12,7 +12,7 @@ let availableCards = [
 ];
 
 let numberOfRounds = 0;
-let numberOfDiscoveredDuo = 0;
+let numberOfMatchedCards = 0;
 
 while (
   quantityOfCards < 4 ||
@@ -49,21 +49,27 @@ function showingCards() {
 }
 
 function selectCard(card) {
-  toggleCard(card)
-  selectedCards.push(card);
-  numberOfRounds++;
-  if (selectedCards.length === 2) {
-    verifyCards();
+  if (
+    selectedCards.length <= 1 &&
+    card !== selectedCards[0] &&
+    !card.classList.contains("matched")
+  ) {
+    toggleCard(card);
+    selectedCards.push(card);
+    numberOfRounds++;
+    if (selectedCards.length === 2) {
+      verifyCards();
+    }
+    verifyEndGame();
   }
-  verifyEndGame();
 }
 
 function toggleCard(card) {
-    let frontCard = card.querySelector(".front");
-    let backCard = card.querySelector(".back");
-  
-    frontCard.classList.toggle("hidden");
-    backCard.classList.toggle("hidden");
+  let frontCard = card.querySelector(".front");
+  let backCard = card.querySelector(".back");
+
+  frontCard.classList.toggle("hidden");
+  backCard.classList.toggle("hidden");
 }
 
 function verifyCards() {
@@ -71,23 +77,27 @@ function verifyCards() {
   let secondCard = selectedCards[1].querySelector(".back");
 
   if (firstCard.src !== secondCard.src) {
-    unmatchedCards(firstCard, secondCard);
+    unmatchedCards();
   } else {
-    numberOfDiscoveredDuo = numberOfDiscoveredDuo + 2;
+    matchedCards();
   }
 
   selectedCards = [];
 }
 
-function unmatchedCards(firstCard, secondCard) {
-  firstCard.classList.toggle("hidden");
-  secondCard.classList.toggle("hidden");
-  selectedCards[0].querySelector(".front").classList.toggle("hidden");
-  selectedCards[1].querySelector(".front").classList.toggle("hidden");
+function unmatchedCards() {
+  toggleCard(selectedCards[0]);
+  toggleCard(selectedCards[1]);
+}
+
+function matchedCards() {
+  numberOfMatchedCards = numberOfMatchedCards + 2;
+  selectedCards[0].classList.add("matched");
+  selectedCards[1].classList.add("matched");
 }
 
 function verifyEndGame() {
-  if (numberOfDiscoveredDuo === gameCards.length) {
+  if (numberOfMatchedCards === gameCards.length) {
     alert("Você ganhou em " + numberOfRounds + " jogadas!");
   }
 }
