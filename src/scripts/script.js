@@ -11,8 +11,8 @@ let availableCards = [
   "unicornparrot.gif",
 ];
 
-let numberOfRounds = 0
-let numberOfDiscoveredDuo = 0
+let numberOfRounds = 0;
+let numberOfDiscoveredDuo = 0;
 
 while (
   quantityOfCards < 4 ||
@@ -54,34 +54,38 @@ function selectCard(card) {
   frontCard.classList.add("hidden");
   backCard.classList.remove("hidden");
   selectedCards.push(card);
-  numberOfRounds++
+  numberOfRounds++;
   if (selectedCards.length === 2) {
     verifyCards();
   }
 
-  verifyEndGame()
-}
-
-function verifyEndGame() {
-    if (numberOfDiscoveredDuo === gameCards.length) {
-        alert("Você ganhou em " + numberOfRounds + " jogadas!")
-    }
+  verifyEndGame();
 }
 
 function verifyCards() {
-    let firstCard = selectedCards[0].querySelector(".back")
-    let secondCard = selectedCards[1].querySelector(".back")
+  let firstCard = selectedCards[0].querySelector(".back");
+  let secondCard = selectedCards[1].querySelector(".back");
 
-    if (firstCard.src !== secondCard.src) {
-        firstCard.classList.toggle("hidden")
-        secondCard.classList.toggle("hidden")
-        selectedCards[0].querySelector(".front").classList.toggle("hidden")
-        selectedCards[1].querySelector(".front").classList.toggle("hidden")
-    } else {
-        numberOfDiscoveredDuo = numberOfDiscoveredDuo + 2
-    }
+  if (firstCard.src !== secondCard.src) {
+    unmatchedCards(firstCard, secondCard);
+  } else {
+    numberOfDiscoveredDuo = numberOfDiscoveredDuo + 2;
+  }
 
-    selectedCards = []
+  selectedCards = [];
+}
+
+function unmatchedCards(firstCard, secondCard) {
+  firstCard.classList.toggle("hidden");
+  secondCard.classList.toggle("hidden");
+  selectedCards[0].querySelector(".front").classList.toggle("hidden");
+  selectedCards[1].querySelector(".front").classList.toggle("hidden");
+}
+
+function verifyEndGame() {
+  if (numberOfDiscoveredDuo === gameCards.length) {
+    alert("Você ganhou em " + numberOfRounds + " jogadas!");
+  }
 }
 
 function comparator() {
