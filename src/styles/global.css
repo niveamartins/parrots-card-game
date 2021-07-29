@@ -5,7 +5,7 @@
 body {
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   align-items: center;
   justify-content: center;
   background-color: #eef9bf;
@@ -23,18 +23,18 @@ h1 {
 }
 
 .cards {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 30px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .card {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   background-color: #a7e9af;
   width: 117px;
   height: 146px;
@@ -43,14 +43,14 @@ h1 {
   object-fit: cover;
   margin-left: 30px;
   margin-top: 30px;
-  
 }
 
-.front, .back {
-    width: 117px;
-    height: 146px;
+.front,
+.back {
+  width: 117px;
+  height: 146px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

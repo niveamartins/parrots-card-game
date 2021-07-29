@@ -11,6 +11,9 @@ let availableCards = [
   "unicornparrot.gif",
 ];
 
+let numberOfRounds = 0
+let numberOfDiscoveredDuo = 0
+
 while (
   quantityOfCards < 4 ||
   quantityOfCards > 14 ||
@@ -51,9 +54,18 @@ function selectCard(card) {
   frontCard.classList.add("hidden");
   backCard.classList.remove("hidden");
   selectedCards.push(card);
+  numberOfRounds++
   if (selectedCards.length === 2) {
     verifyCards();
   }
+
+  verifyEndGame()
+}
+
+function verifyEndGame() {
+    if (numberOfDiscoveredDuo === gameCards.length) {
+        alert("Você ganhou em " + numberOfRounds + " jogadas!")
+    }
 }
 
 function verifyCards() {
@@ -61,13 +73,13 @@ function verifyCards() {
     let secondCard = selectedCards[1].querySelector(".back")
 
     if (firstCard.src !== secondCard.src) {
-
         firstCard.classList.toggle("hidden")
         secondCard.classList.toggle("hidden")
-
         selectedCards[0].querySelector(".front").classList.toggle("hidden")
         selectedCards[1].querySelector(".front").classList.toggle("hidden")
-    } 
+    } else {
+        numberOfDiscoveredDuo = numberOfDiscoveredDuo + 2
+    }
 
     selectedCards = []
 }
